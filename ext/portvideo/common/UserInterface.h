@@ -79,6 +79,7 @@ public:
     virtual bool openDisplay(VisionEngine *engine) = 0;
     virtual void updateDisplay() = 0;
     virtual void closeDisplay() = 0;
+	virtual const unsigned char* getDisplay() = 0;
     
     virtual void setHelpText(std::vector<std::string> hlp) = 0;
     virtual void setBuffers(unsigned char *src, unsigned char *dest, int width, int height, int format) = 0;

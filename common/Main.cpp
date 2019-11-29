@@ -34,6 +34,7 @@
 #include "FrameThresholder.h"
 #include "FidtrackFinder.h"
 #include "CalibrationEngine.h"
+#include "NetworkDisplay.h"
 
 #include "TuioServer.h"
 
@@ -425,6 +426,7 @@ int main(int argc, char* argv[]) {
 	const char *version_no = "1.6";
 
 	bool headless = false;
+	bool networkDisplay = false;
 
 	std::cout << app_name << " " << version_no << " (" << __DATE__ << ")" << std::endl << std::endl;
 
@@ -435,6 +437,15 @@ int main(int argc, char* argv[]) {
 		} else if( strcmp( argv[1], "-c" ) == 0 ) {
 			if (argc==3) sprintf(config.file,"%s",argv[2]);
 			else {
+				printUsage(app_name);
+				return 0;
+			}
+		}
+		else if (strcmp(argv[1], "-nd") == 0) {
+			if (argc == 3) {
+				sprintf(config.network_display_host, "%s", argv[2]);
+				networkDisplay = true;
+			} else {
 				printUsage(app_name);
 				return 0;
 			}
@@ -462,8 +473,8 @@ int main(int argc, char* argv[]) {
 
 	engine = new VisionEngine(app_name,&config);
 
-	if (!headless) {
-		UserInterface *uiface = new SDLinterface(app_name,config.fullscreen);
+	if (!headless || networkDisplay) {
+		UserInterface* uiface = new SDLinterface(app_name, config.fullscreen, networkDisplay);
 		switch (config.display_mode) {
 			case 0: uiface->setDisplayMode(NO_DISPLAY); break;
 			case 1: uiface->setDisplayMode(SOURCE_DISPLAY); break;
@@ -476,6 +487,7 @@ int main(int argc, char* argv[]) {
 	FrameProcessor *fiducialfinder	= NULL;
 	FrameProcessor *thresholder	= NULL;
 	FrameProcessor *calibrator	= NULL;
+	FrameProcessor* networkDisplayProcessor = NULL;
 
 	for (int i=0;i<config.tuio_count;i++) {
 		OscSender *sender = NULL;
@@ -507,6 +519,11 @@ int main(int argc, char* argv[]) {
 	calibrator = new CalibrationEngine(config.grid_config);
 	engine->addFrameProcessor(calibrator);
 
+	if (networkDisplay) {
+		networkDisplayProcessor = new NetworkDisplay(config.network_display_host);
+		engine->addFrameProcessor(networkDisplayProcessor);
+	}
+
 	engine->start();
 
 	engine->removeFrameProcessor(calibrator);
@@ -528,6 +545,9 @@ int main(int argc, char* argv[]) {
 	config.background = ((FrameThresholder*)thresholder)->getEqualizerState();
 	engine->removeFrameProcessor(thresholder);
 	delete thresholder;
+
+	engine->removeFrameProcessor(networkDisplayProcessor);
+	delete networkDisplayProcessor;
 
 	config.invert_x = server->getInvertXpos();
 	config.invert_y = server->getInvertYpos();

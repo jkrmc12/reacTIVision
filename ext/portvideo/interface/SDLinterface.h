@@ -52,15 +52,16 @@ class SDLinterface: public UserInterface
 {
 
 public:
-	SDLinterface(const char* name, bool fullscreen);
+	SDLinterface(const char* name, bool fullscreen, bool hidden);
 	~SDLinterface() {
 		if (uvBuffer_) delete[] uvBuffer_;
+		if (pixelBuffer_) delete[] pixelBuffer_;
 	};
 
 	bool openDisplay(VisionEngine *engine);
     void updateDisplay();
     void closeDisplay();
-	unsigned char* getDisplay();
+	const unsigned char* getDisplay();
 
     void setHelpText(std::vector<std::string> hlp);
     void setBuffers(unsigned char *src, unsigned char *dest, int width, int height, int format);
@@ -109,6 +110,7 @@ private:
 	int textWidth(const char *text);
 
 	unsigned char* uvBuffer_;
+	unsigned char* pixelBuffer_;
 
     bool error_;
     bool pause_;
@@ -118,6 +120,7 @@ private:
     bool recording_;
 #endif
     bool fullscreen_;
+	bool hidden_;
 
 	long frames_;
   	long lastTime_;

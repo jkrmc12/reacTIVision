@@ -97,6 +97,7 @@ public:
 	};
 	
 	void process(unsigned char *src, unsigned char *dest);
+
 	bool init(int w ,int h, int sb, int db);
 	void displayControl();
 	bool toggleFlag(unsigned char flag, bool lock);

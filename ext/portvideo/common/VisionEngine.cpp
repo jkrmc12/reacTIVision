@@ -239,8 +239,13 @@ void VisionEngine::mainLoop()
 			if (camera_) camera_->showInterface(interface_);
             interface_->updateDisplay();
         }
+
         //long total_time = currentMicroSeconds()-start_time;
         //frameStatistics(camera_time,processing_time,total_time);
+
+		auto display = interface_->getDisplay();
+		for (frame = processorList.begin(); frame != processorList.end(); frame++)
+			(*frame)->postProcess(display);
     }
 }
 

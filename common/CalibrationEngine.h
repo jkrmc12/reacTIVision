@@ -38,6 +38,7 @@ public:
 	~CalibrationEngine();
 
     void process(unsigned char *src, unsigned char *dest);
+
 	void drawDisplay();
 	bool init(int w ,int h, int sb, int db);
 	

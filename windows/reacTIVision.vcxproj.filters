@@ -43,6 +43,12 @@
     <Filter Include="Source Files\tuio">
       <UniqueIdentifier>{fd14068f-cd06-46de-ad27-4060e815bcb1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\libav">
+      <UniqueIdentifier>{ea2e2628-451d-49f5-b572-142740850445}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\libav\libavcodec">
+      <UniqueIdentifier>{84082700-e06f-4d0e-b440-2a005d9adaf9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\common\CalibrationEngine.cpp">
@@ -188,6 +194,9 @@
     </ClCompile>
     <ClCompile Include="..\ext\portvideo\ps3eye\PS3EyeCamera.cpp">
       <Filter>Source Files\portvideo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\NetworkDisplay.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -376,6 +385,36 @@
     </ClInclude>
     <ClInclude Include="..\ext\portvideo\ps3eye\PS3EyeCamera.h">
       <Filter>Header Files\portvideo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\NetworkDisplay.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ext\libav\include\libavcodec\avcodec.h">
+      <Filter>Header Files\libav\libavcodec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ext\libav\include\libavcodec\avfft.h">
+      <Filter>Header Files\libav\libavcodec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ext\libav\include\libavcodec\dv_profile.h">
+      <Filter>Header Files\libav\libavcodec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ext\libav\include\libavcodec\dxva2.h">
+      <Filter>Header Files\libav\libavcodec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ext\libav\include\libavcodec\vaapi.h">
+      <Filter>Header Files\libav\libavcodec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ext\libav\include\libavcodec\vda.h">
+      <Filter>Header Files\libav\libavcodec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ext\libav\include\libavcodec\vdpau.h">
+      <Filter>Header Files\libav\libavcodec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ext\libav\include\libavcodec\version.h">
+      <Filter>Header Files\libav\libavcodec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ext\libav\include\libavcodec\xvmc.h">
+      <Filter>Header Files\libav\libavcodec</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

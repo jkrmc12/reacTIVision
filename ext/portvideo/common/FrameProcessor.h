@@ -55,6 +55,7 @@ public:
 
     virtual void addUserInterface(UserInterface *uiface) { ui=uiface; };
     virtual void process(unsigned char *src, unsigned char *dest) = 0;
+	virtual void postProcess(const unsigned char* display) {};
     virtual bool setFlag(unsigned char flag, bool value, bool lock) { return lock; };
     virtual bool toggleFlag(unsigned char flag, bool lock) { return lock; };
 	std::vector<std::string> getOptions() { return help_text; }

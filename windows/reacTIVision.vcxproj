@@ -126,7 +126,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\ext\tuio;..\ext\portvideo\tinyxml;..\common;..\ext\libfidtrack;..\ext\oscpack\osc;..\ext\oscpack;..\ext\portvideo\common;..\ext\portvideo\interface;..\ext\portvideo\ps3eye;..\ext\portvideo\windows\sdl\include;..\ext\portvideo\windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\ext\libav\include;..\ext\tuio;..\ext\portvideo\tinyxml;..\common;..\ext\libfidtrack;..\ext\oscpack\osc;..\ext\oscpack;..\ext\portvideo\common;..\ext\portvideo\interface;..\ext\portvideo\ps3eye;..\ext\portvideo\windows\sdl\include;..\ext\portvideo\windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WINDOWS;WIN32;_DEBUG;_CONSOLE;OSC_HOST_LITTLE_ENDIAN=1;_USE_MATH_DEFINES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -138,9 +138,9 @@
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;ws2_32.lib;winmm.lib;strmiids.lib;libusb-1.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;ws2_32.lib;winmm.lib;strmiids.lib;libusb-1.0.lib;avcodec.lib;avutil.lib;avdevice.lib;avfilter.lib;avformat.lib;avresample.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>..\ext\portvideo\windows\sdl\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\ext\libav\windows\win64;..\ext\portvideo\windows\sdl\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)reacTIVision.pdb</ProgramDatabaseFile>
@@ -241,6 +241,7 @@
     <ClCompile Include="..\common\FiducialFinder.cpp" />
     <ClCompile Include="..\common\FrameThresholder.cpp" />
     <ClCompile Include="..\common\Main.cpp" />
+    <ClCompile Include="..\common\NetworkDisplay.cpp" />
     <ClCompile Include="..\ext\portvideo\common\ConsoleInterface.cpp" />
     <ClCompile Include="..\ext\portvideo\ps3eye\ps3eye.cpp" />
     <ClCompile Include="..\ext\portvideo\ps3eye\PS3EyeCamera.cpp" />
@@ -292,6 +293,16 @@
     <ClInclude Include="..\common\FiducialObject.h" />
     <ClInclude Include="..\common\FrameThresholder.h" />
     <ClInclude Include="..\common\Main.h" />
+    <ClInclude Include="..\common\NetworkDisplay.h" />
+    <ClInclude Include="..\ext\libav\include\libavcodec\avcodec.h" />
+    <ClInclude Include="..\ext\libav\include\libavcodec\avfft.h" />
+    <ClInclude Include="..\ext\libav\include\libavcodec\dv_profile.h" />
+    <ClInclude Include="..\ext\libav\include\libavcodec\dxva2.h" />
+    <ClInclude Include="..\ext\libav\include\libavcodec\vaapi.h" />
+    <ClInclude Include="..\ext\libav\include\libavcodec\vda.h" />
+    <ClInclude Include="..\ext\libav\include\libavcodec\vdpau.h" />
+    <ClInclude Include="..\ext\libav\include\libavcodec\version.h" />
+    <ClInclude Include="..\ext\libav\include\libavcodec\xvmc.h" />
     <ClInclude Include="..\ext\portvideo\common\ConsoleInterface.h" />
     <ClInclude Include="..\ext\portvideo\ps3eye\ps3eye.h" />
     <ClInclude Include="..\ext\portvideo\ps3eye\PS3EyeCamera.h" />

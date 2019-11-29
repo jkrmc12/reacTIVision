@@ -136,9 +136,9 @@ bool SDLinterface::openDisplay(VisionEngine *engine)
 	return true;
 }
 
-unsigned char* SDLinterface::getDisplay()
+const unsigned char* SDLinterface::getDisplay()
 {
-	return NULL;
+	return pixelBuffer_;
 }
 
 void SDLinterface::closeDisplay()
@@ -216,6 +216,10 @@ void SDLinterface::updateDisplay()
 			break;
 		}
 	}
+
+	if (hidden_) {
+		SDL_RenderReadPixels(renderer_, NULL, SDL_PIXELFORMAT_RGB888, pixelBuffer_, width_ * 3);
+	}
 	
 	processEvents();
 	showFrameRate();
@@ -258,7 +262,13 @@ bool SDLinterface::setupWindow()
 	SDL_SetHint(SDL_HINT_RENDER_DRIVER, renderdriver);
 	SDL_SetHint(SDL_HINT_RENDER_VSYNC, "0");
 	
-	SDL_CreateWindowAndRenderer(width_,height_,0,&window_,&renderer_);
+	SDL_CreateWindowAndRenderer(
+		width_,
+		height_,
+		//hidden_ ? SDL_WINDOW_HIDDEN : 0,
+		0,
+		&window_,
+		&renderer_);
 	
 	if ( window_ == NULL )
 	{
@@ -474,6 +484,10 @@ void SDLinterface::allocateBuffers()
 	display_ =  SDL_CreateTexture(renderer_,SDL_PIXELFORMAT_RGBA8888 , SDL_TEXTUREACCESS_TARGET ,width_,height_);
 	SDL_SetTextureBlendMode(display_, SDL_BLENDMODE_BLEND);
 	
+	if (hidden_) {
+		pixelBuffer_ = new unsigned char[width_ * height_ * 3];
+	}
+
 	initFont();
 }
 
@@ -781,7 +795,7 @@ void SDLinterface::setHelpText(std::vector<std::string> hlp)
 	std::cout << std::endl;
 }
 
-SDLinterface::SDLinterface(const char* name, bool fullscreen)
+SDLinterface::SDLinterface(const char* name, bool fullscreen, bool hidden)
 : error_( false )
 , pause_( false )
 , help_( false )
@@ -795,6 +809,7 @@ SDLinterface::SDLinterface(const char* name, bool fullscreen)
 	displayMode_ = DEST_DISPLAY;
 	app_name_ = std::string(name);
 	fullscreen_ = fullscreen;
+	hidden_ = hidden;
 	
 	lastTime_ = VisionEngine::currentSeconds();
 	cameraTime_ = processingTime_ = totalTime_ = 0.0f;
